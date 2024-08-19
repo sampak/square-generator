@@ -1,5 +1,5 @@
 import { ISquare } from './interfaces/ISquare';
-import './style.css';
+import './styles/style.css';
 import { getRandomColor } from './utils/getRandomColor';
 import { getRandomValue } from './utils/getRandomValue';
 
@@ -15,12 +15,16 @@ if (!canvas || !ctx || !generateBtn || !clearBtn || !squareCountInput) {
 
 const squares: ISquare[] = [];
 
+const clearCanvas = (): void => {
+  if (ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    squares.length = 0;
+  }
+};
 
 const drawSquare = (square: ISquare): void => {
-  if (ctx) {
     ctx.fillStyle = square.color;
     ctx.fillRect(square.x, square.y, square.size, square.size);
-  }
 };
 
 const redrawAllSquares = (): void => {
@@ -44,21 +48,13 @@ const generateSquares = (): void => {
   }
 };
 
-const clearCanvas = (): void => {
-  if (ctx) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    squares.length = 0;
-  }
-};
-
-
 const handleClick = (event: MouseEvent): void => {
   const rect = canvas.getBoundingClientRect();
   const clickX = event.clientX - rect.left;
   const clickY = event.clientY - rect.top;
+  const squaresFromTheTopToBottom = [...squares].reverse();
 
-
-  for (const square of [...squares].reverse()) {
+  for (const square of squaresFromTheTopToBottom) {
     if (
       clickX >= square.x &&
       clickX <= square.x + square.size &&

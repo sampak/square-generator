@@ -8,8 +8,8 @@ describe('getRandomValue', () => {
     const max = 100;
     for (let i = 0; i < 100; i++) {
       const value = getRandomValue(min, max);
-      expect(value).toBeGreaterThanOrEqual(min); // Poprawione
-      expect(value).toBeLessThanOrEqual(max);    // Poprawione
+      expect(value).toBeGreaterThanOrEqual(min); 
+      expect(value).toBeLessThanOrEqual(max);   
     }
   });
 });
